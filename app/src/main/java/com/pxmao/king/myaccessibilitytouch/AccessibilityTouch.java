@@ -25,8 +25,63 @@ public class AccessibilityTouch extends AccessibilityService {
         int eventType = event.getEventType();
 
 
+        if (eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+            CharSequence className = event.getClassName();
+            Log.d(TAG, "className:" + className);
+            AccessibilityNodeInfo rowNode = getRootInActiveWindow();
+            List<AccessibilityNodeInfo> list = rowNode.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/aes");
 
-        switch (eventType) {
+            if (className.equals("android.widget.FrameLayout") && list.size() > 1) {
+                Log.d(TAG, "点击了加号");
+                PerFormAction.performClickByIndexToAddList(rowNode, 1);
+                Log.d(TAG, "添加朋友");
+                int eventType1 = event.getEventType();
+                if (eventType1 == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+                    if (className.equals("com.tencent.mm.plugin.subapp.ui.pluginapp.AddMoreFriendsUI")) {
+                        // PerFormAction.performClickByIndexToAddFriendList(getRootInActiveWindow(),7);
+                        new RootShellCmd().simulateClick(500, 275);//点击搜索
+                        int eventType2 = event.getEventType();
+                        if (eventType2 == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+                            if (className.equals("com.tencent.mm.plugin.search.ui.FTSAddFriendUI")) {
+                                new RootShellCmd().setText("13632316531");
+                                SystemClock.sleep(2000);
+                                new RootShellCmd().simulateClick(500, 275);//输入账号后点击搜索
+                                int eventType3 = event.getEventType();
+                                if (eventType3 == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+                                    if (className.equals("com.tencent.mm.plugin.profile.ui.ContactInfoUI")) {
+                                        new RootShellCmd().simulateClick(1060, 100);//右上角的三点（和加号同一ID）
+                                        int eventType4 = event.getEventType();
+                                        if (eventType4 == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+                                            if (className.equals("android.widget.FrameLayout") && list.size() <= 1) {
+                                                PerFormAction.performClickByIndexToAddList(rowNode, 0);
+                                                int eventType5 = event.getEventType();
+                                                if (eventType5 == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+                                                    if (className.equals("com.tencent.mm.ui.contact.ModRemarkNameUI")) {
+                                                        for (int i = 0; i < 30; i++) {
+                                                            SystemClock.sleep(100);
+                                                            new RootShellCmd().simulateKey(67);
+                                                        }
+                                                        new RootShellCmd().setText("9518");
+                                                        SystemClock.sleep(2000);
+                                                        new RootShellCmd().simulateClick(1060, 100);
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
+
+        }
+       /* switch (eventType) {
 
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 CharSequence className = event.getClassName();
@@ -73,7 +128,7 @@ public class AccessibilityTouch extends AccessibilityService {
                 }
                 break;
 
-        }
+        }*/
 
     }
 
