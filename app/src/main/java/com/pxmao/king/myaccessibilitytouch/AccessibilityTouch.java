@@ -27,13 +27,7 @@ public class AccessibilityTouch extends AccessibilityService {
 
 
         switch (eventType) {
-            case AccessibilityEvent.TYPE_VIEW_CLICKED:
-            /*    CharSequence className = getRootInActiveWindow().getClassName();
-                Log.d(TAG, "className:"+className);*/
-                break;
-            case AccessibilityEvent.TYPE_VIEW_LONG_CLICKED:
 
-                break;
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 CharSequence className = event.getClassName();
                 Log.d(TAG, "className:"+className);
@@ -77,9 +71,6 @@ public class AccessibilityTouch extends AccessibilityService {
                     new RootShellCmd().simulateClick(1060,100);
 
                 }
-                break;
-            case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
-
                 break;
 
         }
