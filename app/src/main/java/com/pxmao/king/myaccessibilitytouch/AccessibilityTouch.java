@@ -72,6 +72,9 @@ public class AccessibilityTouch extends AccessibilityService {
                         SystemClock.sleep(100);
                         new RootShellCmd().simulateKey(67);
                     }
+                    new RootShellCmd().setText("9518");
+                    SystemClock.sleep(2000);
+                    new RootShellCmd().simulateClick(1060,100);
 
                 }
                 break;
